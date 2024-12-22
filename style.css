@@ -26,11 +26,22 @@ h1 {
   width: 7rem;
   border-radius: 10rem;
 }
-#GameShop::before {
+#upgrades-shop-container::before {
   content: "";
   border-top: 1px solid #999;
   display: block;
   width: 100vh;
+}
+#upgrades-shop-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.shopStyle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 #reset-button {
   height: 4rem;
