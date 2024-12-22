@@ -28,7 +28,7 @@ h1 {
 }
 #upgrades-shop-container::before {
   content: "";
-  border-top: 1px solid #999;
+  border-top: 1px solid #181717;
   display: block;
   width: 100vh;
 }
@@ -41,8 +41,15 @@ h1 {
 .shopStyle {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
+#upgrades-shop-container::after {
+  content: "";
+  border-top: 1px solid #0d0c0c;
+  display: block;
+  width: 100vh;
+}
+
 #reset-button {
   height: 4rem;
   width: 10rem;

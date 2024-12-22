@@ -42,12 +42,13 @@ async function renderShopUpgrades() {
     const upgradeName = document.createElement("p");
     upgradeName.textContent = shopItemData.name;
     const upgradeCost = document.createElement("p");
-    upgradeCost.textContent = shopItemData.cost;
+    upgradeCost.textContent = `$  ${shopItemData.cost}`;
     const upgradeCPSIncrease = document.createElement("p");
-    upgradeCPSIncrease.textContent = shopItemData.increase;
+    upgradeCPSIncrease.textContent = `+ ${shopItemData.increase}`;
 
     // Append these elements into the relevant container in the same way as you appended your imgs into the thumbnail container in WK2...
     const Shop = document.createElement("div");
+
     Shop.appendChild(upgradeName);
     Shop.appendChild(upgradeCost);
     Shop.appendChild(upgradeCPSIncrease);
