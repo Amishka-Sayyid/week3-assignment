@@ -3,8 +3,6 @@ console.log("This is connected correctly");
 // We have to store some global values!
 let cookieCount = 0;
 let cookiesPerSecond = 0;
-//You can start your game with having no cookies added to you total each second, OR you can start with adding 1 cookie per secong. Its up to you!
-
 let gameData = {
   cookieCount: 0,
   cookiesPerSecond: 0,
@@ -30,9 +28,15 @@ async function getShopUpgrades() {
   // We now need to translate the data we recieve from JSON to something we can use!
   const data = await result.json();
   console.log(data);
-  return data;
 
   //We need to *PUSH* the upgrade times that we got from our fetch, into our empty array!
+  shopUpgradesArray.length = 0;
+  data.forEach(upgradeArray);
+  function upgradeArray(upgradeData) {
+    shopUpgradesArray.push(upgradeData);
+  }
+  console.log(shopUpgradesArray);
+  return shopUpgradesArray;
   //Remember that the upgrades that we fetched will be known by a variable name that you have set on line 30/31 ^
 }
 
@@ -41,6 +45,7 @@ async function renderShopUpgrades() {
   // Now that we have our upgrade items inside an array we can perorm array method on them! Just like we did for images in the WK2 gallery submission!
 
   getShopItems.forEach(function (upgrade) {
+    // Create elements dynamically
     //This is where you should go back to your WK2 gallery loop and apply the same logic to this loop!
     // const upgradeName = [FINISH THIS CODE]
     // const upgradeCost = [FINISH THIS CODE]
