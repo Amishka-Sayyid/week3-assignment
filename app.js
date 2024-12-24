@@ -1,7 +1,5 @@
 console.log("This is connected correctly");
 
-// We have to store some global values!
-
 let cookieCount = 0;
 let cookiesPerSecond = 0;
 let upgradeCount = 0;
@@ -34,22 +32,22 @@ async function getShopUpgrades() {
   shopUpgradesArray.length = 5;
   console.log(shopUpgradesArray);
   return shopUpgradesArray;
-  //Remember that the upgrades that we fetched will be known by a variable name that you have set on line 30/31 ^
 }
 
 async function renderShopUpgrades() {
   const getShopItems = await getShopUpgrades();
   console.log(getShopItems);
-  // Now that we have our upgrade items inside an array we can perform array method on them! Just like we did for images in the WK2 gallery submission!
+
   getShopItems.forEach(function (shopItemData) {
-    // Create elements dynamically
-    //This is where you should go back to your WK2 gallery loop and apply the same logic to this loop!
     let upgrade = document.createElement("p");
     upgrade.textContent += upgradeCount;
+
     const upgradeName = document.createElement("p");
     upgradeName.textContent = shopItemData.name;
+
     const upgradeCost = document.createElement("p");
     upgradeCost.textContent = `$  ${shopItemData.cost}`;
+
     const upgradeCPSIncrease = document.createElement("p");
     upgradeCPSIncrease.textContent = `+ ${shopItemData.increase}`;
 
@@ -64,7 +62,7 @@ async function renderShopUpgrades() {
     //This is a decent place to also create a button element and attach an event listener to it! You will then need to create a handler function for the button that you create!
     const ShopUpgradeButton = document.createElement("button");
     ShopUpgradeButton.textContent = `BUY`;
-    //i need to pass the specific upgrade cost and cps increase in the event handler
+
     ShopUpgradeButton.addEventListener(
       "click",
       handleUpgradeClick(shopItemData.cost, shopItemData.increase)
@@ -88,7 +86,7 @@ function handleUpgradeClick(upgradeCost, upgradeCPSIncrease) {
     //upgrading the upgrade count
     upgradeCount++;
 
-    //update gamedata
+    //updating gamedata
     gameData.cookieCount = cookieCount;
     gameData.cookiesPerSecond = cookiesPerSecond;
     gameData.upgradeCount = upgradeCount;
@@ -105,8 +103,7 @@ const cookiesPerSeconddisplay = document.getElementById("current-cps");
 cookiesPerSeconddisplay.textContent = gameData.cookiesPerSecond;
 
 setInterval(function () {
-  //increase cookie count by cookiespersecond every second
-
+  //increasing cookie count by cookiespersecond every second
   gameData.cookieCount += gameData.cookiesPerSecond;
   //updating display
   cookiedisplay.textContent = gameData.cookieCount;
@@ -114,6 +111,8 @@ setInterval(function () {
   //saving the updated data
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }, 1000);
+//retrieves saved data after refresh from local storage
+gameData = JSON.parse(localStorage.getItem("gameData"));
 
 const cookieTimerButton = document.getElementById("cookie-increment-button");
 cookieTimerButton.addEventListener("click", function () {
