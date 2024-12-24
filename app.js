@@ -91,17 +91,31 @@ function handleUpgradeClick() {
     gameData.cookiesPerSecond = cookiesPerSecond;
     gameData.upgradeCount = upgradeCount;
 
-    displayCookie();
-
     //saving the data
     localStorage.setItem("gamedata", JSON.stringify(gamedata));
   }
 }
 
 setInterval(function () {
-  // We want our timer to increase the value of cookieCount by the value of cookiesPerSecond every second.
+  //increase cookie count by cookiespersecond every second
+  cookieCount += cookiesPerSecond;
+
+  const cookiedisplay = document.getElementById("total-cookies-owned");
+  cookiedisplay.textContent = cookieCount;
+
+  const cookiesPerSeconddisplay = document.getElementById("current-cps");
+  cookiesPerSeconddisplay.textContent = cookiesPerSecond;
+
+  const cookieTimerButton = document.getElementById("cookie-increment-button");
+  cookieTimerButton.addEventListener("click", function () {
+    cookieCount *= cookiesPerSecond;
+    cookiedisplay.textContent = cookieCount;
+    localStorage.setItem("cookieCount", cookieCount);
+  });
   // We want to update the cookieCount value on our page as it changes
   // I want to store this value in local storage so that my user can resume the game with their game data intact.
+  localStorage.setItem("cookieCount", cookieCount);
+  localStorage.setItem("cookiesPerSecond", cookiesPerSecond);
 }, 1000);
 
 // It is perfectly fine to perform all of the actions that we want our setInterval function to do with external functions, then you can callback those functions inside the setInterval function.
