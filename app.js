@@ -1,6 +1,7 @@
 console.log("This is connected correctly");
 
 // We have to store some global values!
+
 let cookieCount = 0;
 let cookiesPerSecond = 0;
 let gameData = {
@@ -27,6 +28,7 @@ async function getShopUpgrades() {
   function upgradeArray(upgradeArrayData) {
     shopUpgradesArray.push(upgradeArrayData);
   }
+  shopUpgradesArray.length = 5;
   console.log(shopUpgradesArray);
   return shopUpgradesArray;
   //Remember that the upgrades that we fetched will be known by a variable name that you have set on line 30/31 ^
@@ -39,6 +41,8 @@ async function renderShopUpgrades() {
   getShopItems.forEach(function (shopItemData) {
     // Create elements dynamically
     //This is where you should go back to your WK2 gallery loop and apply the same logic to this loop!
+    const upgrade = document.createElement("p");
+    upgrade.textContent = 0;
     const upgradeName = document.createElement("p");
     upgradeName.textContent = shopItemData.name;
     const upgradeCost = document.createElement("p");
@@ -48,7 +52,7 @@ async function renderShopUpgrades() {
 
     // Append these elements into the relevant container in the same way as you appended your imgs into the thumbnail container in WK2...
     const Shop = document.createElement("div");
-
+    Shop.appendChild(upgrade);
     Shop.appendChild(upgradeName);
     Shop.appendChild(upgradeCost);
     Shop.appendChild(upgradeCPSIncrease);
