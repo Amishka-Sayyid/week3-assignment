@@ -4,9 +4,12 @@ console.log("This is connected correctly");
 
 let cookieCount = 0;
 let cookiesPerSecond = 0;
+let upgradeCount = 0;
+
 let gameData = {
   cookieCount: 0,
   cookiesPerSecond: 0,
+  upgradeCount: 0,
 };
 
 const shopUpgradesArray = [];
@@ -41,8 +44,8 @@ async function renderShopUpgrades() {
   getShopItems.forEach(function (shopItemData) {
     // Create elements dynamically
     //This is where you should go back to your WK2 gallery loop and apply the same logic to this loop!
-    const upgrade = document.createElement("p");
-    upgrade.textContent = 0;
+    let upgrade = document.createElement("p");
+    upgrade.textContent = upgradeCount;
     const upgradeName = document.createElement("p");
     upgradeName.textContent = shopItemData.name;
     const upgradeCost = document.createElement("p");
@@ -75,6 +78,24 @@ renderShopUpgrades();
 function handleUpgradeClick() {
   //The logic for the upgrade button event handler to only deal with the vaules of the specific upgrade it was create for is the same logic as the event handler for the creation of the large image element in the week 2 submission.
   // Here is a great place to include some logic that checks a CONDITIONAL to see if you have enough cookies in cookieCount to be able to afford the price of the upgrade. If you cant afford and upgrade, how can you give this feedback to your user?
+  if (cookieCount >= upgradeCost) {
+    //deducting the upgrade cost
+    cookieCount -= upgradeCost;
+    //increasing the cookies per second
+    cookiesPerSecond += upgradeCPSIncrease;
+    //upgrading the upgrade count
+    upgradeCount++;
+
+    //update gamedata
+    gameData.cookieCount = cookieCount;
+    gameData.cookiesPerSecond = cookiesPerSecond;
+    gameData.upgradeCount = upgradeCount;
+
+    displayCookie();
+
+    //saving the data
+    localStorage.setItem("gamedata", JSON.stringify(gamedata));
+  }
 }
 
 setInterval(function () {
