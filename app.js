@@ -92,30 +92,32 @@ function handleUpgradeClick() {
     gameData.upgradeCount = upgradeCount;
 
     //saving the data
-    localStorage.setItem("gamedata", JSON.stringify(gamedata));
+    localStorage.setItem("gameData", JSON.stringify(gameData));
   }
 }
 
+const cookiedisplay = document.getElementById("total-cookies-owned");
+cookiedisplay.textContent = gameData.cookieCount;
+
+const cookiesPerSeconddisplay = document.getElementById("current-cps");
+cookiesPerSeconddisplay.textContent = gameData.cookiesPerSecond;
+
 setInterval(function () {
   //increase cookie count by cookiespersecond every second
-  cookieCount += cookiesPerSecond;
-
-  const cookiedisplay = document.getElementById("total-cookies-owned");
-  cookiedisplay.textContent = cookieCount;
-
-  const cookiesPerSeconddisplay = document.getElementById("current-cps");
-  cookiesPerSeconddisplay.textContent = cookiesPerSecond;
-
-  const cookieTimerButton = document.getElementById("cookie-increment-button");
-  cookieTimerButton.addEventListener("click", function () {
-    cookieCount *= cookiesPerSecond;
-    cookiedisplay.textContent = cookieCount;
-    localStorage.setItem("cookieCount", cookieCount);
-  });
-  // We want to update the cookieCount value on our page as it changes
-  // I want to store this value in local storage so that my user can resume the game with their game data intact.
-  localStorage.setItem("cookieCount", cookieCount);
-  localStorage.setItem("cookiesPerSecond", cookiesPerSecond);
+  gameData.cookieCount += gameData.cookiesPerSecond;
+  //updating display
+  cookiedisplay.textContent = gameData.cookieCount;
+  cookiesPerSeconddisplay.textContent = gameData.cookiesPerSecond;
+  //saving the updated data
+  localStorage.setItem("gameData", JSON.stringify(gameData));
 }, 1000);
+
+const cookieTimerButton = document.getElementById("cookie-increment-button");
+cookieTimerButton.addEventListener("click", function () {
+  gameData.cookieCount += gameData.cookiesPerSecond;
+  cookiedisplay.textContent = gameData.cookieCount;
+
+  localStorage.setItem("gameData", JSON.stringify(gameData));
+});
 
 // It is perfectly fine to perform all of the actions that we want our setInterval function to do with external functions, then you can callback those functions inside the setInterval function.
