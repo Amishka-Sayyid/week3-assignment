@@ -8,7 +8,7 @@ let upgradeCount = 0;
 
 let gameData = {
   cookieCount: 0,
-  cookiesPerSecond: 0,
+  cookiesPerSecond: 1,
   upgradeCount: 0,
 };
 
@@ -86,7 +86,7 @@ function handleUpgradeClick(upgradeCost, upgradeCPSIncrease) {
     //increasing the cookies per second
     cookiesPerSecond += upgradeCPSIncrease;
     //upgrading the upgrade count
-    upgradeCount++;
+    upgrade++;
 
     //update gamedata
     gameData.cookieCount = cookieCount;
@@ -106,6 +106,7 @@ cookiesPerSeconddisplay.textContent = gameData.cookiesPerSecond;
 
 setInterval(function () {
   //increase cookie count by cookiespersecond every second
+  cookieCount++;
   gameData.cookieCount += gameData.cookiesPerSecond;
   //updating display
   cookiedisplay.textContent = gameData.cookieCount;
