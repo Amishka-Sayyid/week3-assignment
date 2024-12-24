@@ -64,7 +64,11 @@ async function renderShopUpgrades() {
     //This is a decent place to also create a button element and attach an event listener to it! You will then need to create a handler function for the button that you create!
     const ShopUpgradeButton = document.createElement("button");
     ShopUpgradeButton.textContent = `BUY`;
-    ShopUpgradeButton.addEventListener("click", handleUpgradeClick);
+    //i need to pass the specific upgrade cost and cps increase in the event handler
+    ShopUpgradeButton.addEventListener(
+      "click",
+      handleUpgradeClick(upgradeCost, upgradeCPSIncrease)
+    );
 
     Shop.appendChild(ShopUpgradeButton);
 
@@ -75,9 +79,7 @@ renderShopUpgrades();
 
 // We want our upgrades to actually do something! We need to give each upgrade a button and attach an event listener to those buttons!
 
-function handleUpgradeClick() {
-  //The logic for the upgrade button event handler to only deal with the vaules of the specific upgrade it was create for is the same logic as the event handler for the creation of the large image element in the week 2 submission.
-  // Here is a great place to include some logic that checks a CONDITIONAL to see if you have enough cookies in cookieCount to be able to afford the price of the upgrade. If you cant afford and upgrade, how can you give this feedback to your user?
+function handleUpgradeClick(upgradeCost, upgradeCPSIncrease) {
   if (cookieCount >= upgradeCost) {
     //deducting the upgrade cost
     cookieCount -= upgradeCost;
@@ -116,7 +118,7 @@ const cookieTimerButton = document.getElementById("cookie-increment-button");
 cookieTimerButton.addEventListener("click", function () {
   gameData.cookieCount += gameData.cookiesPerSecond;
   cookiedisplay.textContent = gameData.cookieCount;
-
+  cookieTimerButton.style.backgroundColor = "pink";
   localStorage.setItem("gameData", JSON.stringify(gameData));
 });
 
