@@ -65,19 +65,27 @@ _Stretch Requirements_
 _Required_
 
     🎯 What requirements did you achieve?
+    -Fetching upgrade data from the provided API
+    -Ensure that functions are used effectively to keep code organised and reusable.
+    -Implementing event listeners to handle user interactions.
+    -Use local storage to save and restore the cookie count and relevant game information.(managed this had to go through class worshop to double check).
+    -Use setInterval to increment the cookie count and manage the game state each second.
 
     🎯 Were there any requirements or goals that you were unable to achieve?
-
+    -the stretch goals
     🎯 If so, what was it that you found difficult about these tasks?
+    -i didn't fully managed yet to make the game fully functional as the upgradecount isn't working and the by button as well.
+    -apologies i took way longer time with this assignment.
 
 _Optional_
 
     🎯Requesting feedback about a specific part of your submission.
+    - how to make the upgradecount work well please.
 
     🎯What useful external sources helped you complete the assignment (e.g Youtube tutorials)?
-    *https://youtu.be/g1hlKlovok8?si=I0NqhetY00faZqsg
-
-
-    🎯What errors or bugs did you encounter while completing your assignment? How did you solve them?
-
-    🎯What went really well and what could have gone better?
+    -https://youtu.be/g1hlKlovok8?si=I0NqhetY00faZqsg
+    -https://youtu.be/FD7fnqkBV9w?si=IVo_CqpkdR6eFSXT
+    -https://youtu.be/EcHKynQwJIQ?si=dEotlaIQMnjIbQm8
+    -the working skeleton provided in class as always was super extremely helpful.
+    -rewatched some lesson from class
+    -doing the class workshops

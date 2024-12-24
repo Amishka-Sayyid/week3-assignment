@@ -111,6 +111,7 @@ setInterval(function () {
   //saving the updated data
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }, 1000);
+
 //retrieves saved data after refresh from local storage
 gameData = JSON.parse(localStorage.getItem("gameData"));
 
