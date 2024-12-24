@@ -45,7 +45,7 @@ async function renderShopUpgrades() {
     // Create elements dynamically
     //This is where you should go back to your WK2 gallery loop and apply the same logic to this loop!
     let upgrade = document.createElement("p");
-    upgrade.textContent = upgradeCount;
+    upgrade.textContent = `${upgradeCount}`;
     const upgradeName = document.createElement("p");
     upgradeName.textContent = shopItemData.name;
     const upgradeCost = document.createElement("p");
@@ -67,7 +67,7 @@ async function renderShopUpgrades() {
     //i need to pass the specific upgrade cost and cps increase in the event handler
     ShopUpgradeButton.addEventListener(
       "click",
-      handleUpgradeClick(upgradeCost, upgradeCPSIncrease)
+      handleUpgradeClick(upgradeCost, upgradeCPSIncrease, upgrade)
     );
 
     Shop.appendChild(ShopUpgradeButton);
@@ -79,14 +79,14 @@ renderShopUpgrades();
 
 // We want our upgrades to actually do something! We need to give each upgrade a button and attach an event listener to those buttons!
 
-function handleUpgradeClick(upgradeCost, upgradeCPSIncrease) {
+function handleUpgradeClick(upgradeCost, upgradeCPSIncrease, upgrade) {
   if (cookieCount >= upgradeCost) {
     //deducting the upgrade cost
     cookieCount -= upgradeCost;
     //increasing the cookies per second
     cookiesPerSecond += upgradeCPSIncrease;
     //upgrading the upgrade count
-    upgrade++;
+    upgrade = upgradeCount++;
 
     //update gamedata
     gameData.cookieCount = cookieCount;
