@@ -60,17 +60,21 @@ async function renderShopUpgrades() {
 
     Shop.className = "shopStyle";
     //This is a decent place to also create a button element and attach an event listener to it! You will then need to create a handler function for the button that you create!
-    const ShopUpgradeButton = document.createElement("button");
-    ShopUpgradeButton.textContent = `BUY`;
-    Shop.appendChild(ShopUpgradeButton);
 
     //trying to access each button individually
-    Shop.forEach(function () {
+    for (let x = 0; x < shopItemData.length; x++) {
+      console.log([x]);
+
+      const ShopUpgradeButton = document.createElement("button");
+      ShopUpgradeButton.textContent = `BUY`;
+
+      Shop.appendChild(ShopUpgradeButton);
+
       ShopUpgradeButton.addEventListener(
         "click",
         handleUpgradeClick(shopItemData.cost, shopItemData.increase)
       );
-    });
+    }
 
     upgradesContainer.appendChild(Shop);
   });
