@@ -60,21 +60,15 @@ async function renderShopUpgrades() {
 
     Shop.className = "shopStyle";
     //This is a decent place to also create a button element and attach an event listener to it! You will then need to create a handler function for the button that you create!
+    const ShopUpgradeButton = document.createElement("button");
+    ShopUpgradeButton.textContent = `BUY`;
 
-    //trying to access each button individually
-    for (let x = 0; x < shopItemData.length; x++) {
-      console.log([x]);
+    ShopUpgradeButton.addEventListener(
+      "click",
+      handleUpgradeClick(shopItemData.cost, shopItemData.increase)
+    );
 
-      const ShopUpgradeButton = document.createElement("button");
-      ShopUpgradeButton.textContent = `BUY`;
-
-      Shop.appendChild(ShopUpgradeButton);
-
-      ShopUpgradeButton.addEventListener(
-        "click",
-        handleUpgradeClick(shopItemData.cost, shopItemData.increase)
-      );
-    }
+    Shop.appendChild(ShopUpgradeButton);
 
     upgradesContainer.appendChild(Shop);
   });
@@ -117,7 +111,6 @@ setInterval(function () {
   //saving the updated data
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }, 1000);
-
 //retrieves saved data after refresh from local storage
 gameData = JSON.parse(localStorage.getItem("gameData"));
 
