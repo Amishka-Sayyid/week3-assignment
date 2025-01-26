@@ -1,14 +1,25 @@
 console.log("This is connected correctly");
 
 let cookieCount = 0;
-let cookiesPerSecond = 0;
+let cookiesPerSecond = 1;
 let upgradeCount = 0;
 
-let gameData = {
+// Initializing game data from localStorage (if available)
+let gameData = JSON.parse(localStorage.getItem("gameData")) || {
   cookieCount: 0,
   cookiesPerSecond: 1,
   upgradeCount: 0,
 };
+
+// Displaying initial game data
+const cookiedisplay = document.getElementById("total-cookies-owned");
+cookiedisplay.textContent = gameData.cookieCount;
+
+const cookiesPerSeconddisplay = document.getElementById("current-cps");
+cookiesPerSeconddisplay.textContent = gameData.cookiesPerSecond;
+
+const upgradeCountDisplay = document.getElementById("upgrade-count");
+upgradeCountDisplay.textContent = `Upgrades Purchased: ${gameData.upgradeCount}`;
 
 const shopUpgradesArray = [];
 
@@ -39,9 +50,6 @@ async function renderShopUpgrades() {
   console.log(getShopItems);
 
   getShopItems.forEach(function (shopItemData) {
-    let upgrade = document.createElement("p");
-    upgrade.textContent += upgradeCount;
-
     const upgradeName = document.createElement("p");
     upgradeName.textContent = shopItemData.name;
 
@@ -53,7 +61,7 @@ async function renderShopUpgrades() {
 
     // Append these elements into the relevant container in the same way as you appended your imgs into the thumbnail container in WK2...
     const Shop = document.createElement("div");
-    Shop.appendChild(upgrade);
+
     Shop.appendChild(upgradeName);
     Shop.appendChild(upgradeCost);
     Shop.appendChild(upgradeCPSIncrease);
@@ -63,10 +71,9 @@ async function renderShopUpgrades() {
     const ShopUpgradeButton = document.createElement("button");
     ShopUpgradeButton.textContent = `BUY`;
 
-    ShopUpgradeButton.addEventListener(
-      "click",
-      handleUpgradeClick(shopItemData.cost, shopItemData.increase)
-    );
+    ShopUpgradeButton.addEventListener("click", function () {
+      handleUpgradeClick(shopItemData.cost, shopItemData.increase);
+    });
 
     Shop.appendChild(ShopUpgradeButton);
 
@@ -78,29 +85,18 @@ renderShopUpgrades();
 // We want our upgrades to actually do something! We need to give each upgrade a button and attach an event listener to those buttons!
 
 function handleUpgradeClick(upgradeCost, upgradeCPSIncrease) {
-  if (cookieCount >= upgradeCost) {
-    //deducting the upgrade cost
-    cookieCount -= upgradeCost;
-    //increasing the cookies per second
-    cookiesPerSecond += upgradeCPSIncrease;
-    //upgrading the upgrade count
-    upgradeCount++;
+  if (gameData.cookieCount >= upgradeCost) {
+    // Deduct upgrade cost and increase CPS
+    gameData.cookieCount -= upgradeCost;
+    gameData.cookiesPerSecond += upgradeCPSIncrease;
+    gameData.upgradeCount++;
 
-    //updating gamedata
-    gameData.cookieCount = cookieCount;
-    gameData.cookiesPerSecond = cookiesPerSecond;
-    gameData.upgradeCount = upgradeCount;
+    // Update display
+    upgradeCountDisplay.textContent = `Upgrades Purchased: ${gameData.upgradeCount}`;
 
-    //saving the data
     localStorage.setItem("gameData", JSON.stringify(gameData));
   }
 }
-
-const cookiedisplay = document.getElementById("total-cookies-owned");
-cookiedisplay.textContent = gameData.cookieCount;
-
-const cookiesPerSeconddisplay = document.getElementById("current-cps");
-cookiesPerSeconddisplay.textContent = gameData.cookiesPerSecond;
 
 setInterval(function () {
   //increasing cookie count by cookiespersecond every second
@@ -114,6 +110,7 @@ setInterval(function () {
 //retrieves saved data after refresh from local storage
 gameData = JSON.parse(localStorage.getItem("gameData"));
 
+//cookie increment button
 const cookieTimerButton = document.getElementById("cookie-increment-button");
 cookieTimerButton.addEventListener("click", function () {
   gameData.cookieCount += gameData.cookiesPerSecond;

@@ -43,6 +43,7 @@ h1 {
   flex-direction: row;
   justify-content: space-evenly;
 }
+
 #upgrades-shop-container::after {
   content: "";
   border-top: 1px solid #0d0c0c;
