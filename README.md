@@ -71,8 +71,13 @@ _Required_
     -Use local storage to save and restore the cookie count and relevant game information.(managed this had to go through class worshop to double check).
     -Use setInterval to increment the cookie count and manage the game state each second.
 
+    stretch requirements achieved are:
+    -Implement error handling using try/catch
+    -Consolidate upgrade management by managing all upgrades in a single function.
+
     🎯 Were there any requirements or goals that you were unable to achieve?
-    -the stretch goals
+    -the rest of stretch goals
+
     🎯 If so, what was it that you found difficult about these tasks?
     -i didn't fully managed yet to make the game fully functional as the upgradecount isn't working and the by button as well.
     -apologies i took way longer time with this assignment.
@@ -89,3 +94,8 @@ _Optional_
     -the working skeleton provided in class as always was super extremely helpful.
     -rewatched some lesson from class
     -doing the class workshops
+
+
+    I redid the assignment to make it more functional now the upgrade button works well and the upgrage for each shop is saved in localhost along with its id in game data.
+    what is did differently from before is i displayed the api data  in a table format.
+    this time round i did the reset button and the page reloads after reset alert.
