@@ -66,13 +66,13 @@ function createTable(cookieData) {
   // create heading cells $ Insert data to cells
 
   let h1 = document.createElement("th");
-  h1.innerText = "id";
+  h1.innerText = "Upgrade";
   let h2 = document.createElement("th");
-  h2.innerText = "name";
+  h2.innerText = "Name";
   let h3 = document.createElement("th");
-  h3.innerText = "cost";
+  h3.innerText = "Cost";
   let h4 = document.createElement("th");
-  h4.innerText = "increase";
+  h4.innerText = "Increase";
   let h5 = document.createElement("th");
   h5.innerText = "Buy";
 
@@ -95,13 +95,13 @@ function createTable(cookieData) {
 
     // Create cells & Insert data to cells
     let c1 = document.createElement("td");
-    c1.innerText = single.id;
+    c1.innerText = gameData.upgradeCount;
     let c2 = document.createElement("td");
     c2.innerText = single.name;
     let c3 = document.createElement("td");
-    c3.innerText = single.cost;
+    c3.innerText = `$ ${single.cost}`;
     let c4 = document.createElement("td");
-    c4.innerText = single.increase;
+    c4.innerText = `+ ${single.increase}`;
     let c5 = document.createElement("td");
     const button = document.createElement("button");
     button.innerText = "Buy Upgrade";
@@ -132,3 +132,20 @@ async function combine() {
 }
 
 combine();
+
+// reset game
+
+const reset = document.getElementById("reset-button");
+reset.addEventListener("click", () => {
+  // Reset the game data
+  gameData.cookieCount = 0;
+  gameData.cookiesPerSecond = 1;
+  gameData.upgradeCount = 0;
+
+  // Update the displayed values on the page
+  cookiedisplay.textContent = gameData.cookieCount;
+  cookiesPerSeconddisplay.textContent = `${gameData.cookiesPerSecond} cps`;
+
+  // Save the reset game data to localStorage
+  localStorage.setItem("gameData", JSON.stringify(gameData));
+});
