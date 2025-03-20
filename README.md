@@ -94,6 +94,8 @@ _Optional_
     -the working skeleton provided in class as always was super extremely helpful.
     -rewatched some lesson from class
     -doing the class workshops
+    <!-- to add table in dom -->
+    https://www.tutorialspoint.com/How-to-add-rows-to-a-table-using-JavaScript-DOM#:~:text=the%20new%20Element-,Using%20the%20insertRow()%20Method,the%20position%20of%20the%20table.
 
 
     I redid the assignment to make it more functional now the upgrade button works well and the upgrage for each shop is saved in localhost along with its id in game data.
