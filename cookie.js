@@ -1,16 +1,11 @@
-let cookieCount = 0;
-let cookiesPerSecond = 1;
-let upgradeCount = 0;
-
-// Check if there is saved game data in localStorage
 let gameData = JSON.parse(localStorage.getItem("gameData")) || {
   cookieCount: 0,
   cookiesPerSecond: 1,
-  upgradeCount: 0,
+  upgrades: {},
 };
 
-// Save the game data to localStorage initially (if there's no saved data)
-if (!localStorage.getItem("gameData")) {
+// Save game data to localStorage only when updated
+function saveGameData() {
   localStorage.setItem("gameData", JSON.stringify(gameData));
 }
 
@@ -22,9 +17,7 @@ cookiedisplay.textContent = gameData.cookieCount;
 setInterval(function () {
   gameData.cookieCount += gameData.cookiesPerSecond;
   cookiedisplay.textContent = gameData.cookieCount;
-
-  // Update the gameData in localStorage every second
-  localStorage.setItem("gameData", JSON.stringify(gameData));
+  saveGameData(); // Save game data every second
 }, 1000);
 
 // Display cookies per second
@@ -37,15 +30,10 @@ const cookieTimerButton = document.getElementById("cookie-increment-button");
 cookieTimerButton.addEventListener("click", () => {
   gameData.cookieCount += gameData.cookiesPerSecond;
   cookiedisplay.textContent = gameData.cookieCount;
-
-  // Save the updated gameData to localStorage
-  localStorage.setItem("gameData", JSON.stringify(gameData));
+  saveGameData(); // Save the updated gameData
 });
 
-// https://cookie-upgrade-api.vercel.app/api/upgrades
-
-// tring to fetch and render the the above in table format.
-
+// Fetch upgrades from the API
 async function getDetails() {
   const result = await fetch(
     "https://cookie-upgrade-api.vercel.app/api/upgrades"
@@ -57,14 +45,10 @@ async function getDetails() {
 const cookie = document.getElementById("cookie");
 
 function createTable(cookieData) {
-  // creating the table
   const table = document.createElement("table");
 
-  // create head for the table
+  // Create table header
   let head = document.createElement("thead");
-
-  // create heading cells $ Insert data to cells
-
   let h1 = document.createElement("th");
   h1.innerText = "Upgrade";
   let h2 = document.createElement("th");
@@ -76,26 +60,24 @@ function createTable(cookieData) {
   let h5 = document.createElement("th");
   h5.innerText = "Buy";
 
-  // append  cells to head
   head.appendChild(h1);
   head.appendChild(h2);
   head.appendChild(h3);
   head.appendChild(h4);
   head.appendChild(h5);
-
-  // append the head to table
   table.appendChild(head);
 
-  //   creating body for table
+  // Table body
   let body = document.createElement("tbody");
 
   cookieData.forEach((single) => {
-    // creating the row element
+    const upgradeCount = gameData.upgrades[single.id] || 0; // Default to 0 if upgrade not bought yet
+
     let row = document.createElement("tr");
 
-    // Create cells & Insert data to cells
     let c1 = document.createElement("td");
-    c1.innerText = gameData.upgradeCount;
+    c1.innerText = gameData.upgrades[single.id] || 0;
+
     let c2 = document.createElement("td");
     c2.innerText = single.name;
     let c3 = document.createElement("td");
@@ -103,49 +85,83 @@ function createTable(cookieData) {
     let c4 = document.createElement("td");
     c4.innerText = `+ ${single.increase}`;
     let c5 = document.createElement("td");
+
     const button = document.createElement("button");
     button.innerText = "Buy Upgrade";
 
-    c5.appendChild(button);
+    // Add event listener for the button
+    button.addEventListener("click", function () {
+      handleUpgradeClick(single.id, single.cost, single.increase);
+    });
 
-    // Append cells to row
+    c5.appendChild(button);
     row.appendChild(c1);
     row.appendChild(c2);
     row.appendChild(c3);
     row.appendChild(c4);
     row.appendChild(c5);
 
-    // append row to body
     body.appendChild(row);
   });
-  // Append the body to the table
-  table.appendChild(body);
 
-  // Append the table to the div "cookie"
+  table.appendChild(body);
+  cookie.innerHTML = ""; // Clear previous table content
   cookie.appendChild(table);
 }
 
 async function combine() {
   const allTogether = await getDetails();
-
   createTable(allTogether);
 }
 
 combine();
 
-// reset game
-
+// Reset game
 const reset = document.getElementById("reset-button");
 reset.addEventListener("click", () => {
-  // Reset the game data
   gameData.cookieCount = 0;
   gameData.cookiesPerSecond = 1;
-  gameData.upgradeCount = 0;
+  gameData.upgrades = {}; // Reset upgrades object
 
-  // Update the displayed values on the page
+  // Update the displayed values
   cookiedisplay.textContent = gameData.cookieCount;
   cookiesPerSeconddisplay.textContent = `${gameData.cookiesPerSecond} cps`;
 
   // Save the reset game data to localStorage
-  localStorage.setItem("gameData", JSON.stringify(gameData));
+  saveGameData();
+  location.reload();
+  alert("Game has been reset! Start fresh and keep collecting cookies!");
 });
+
+// Handle upgrade click
+function handleUpgradeClick(upgradeId, cost, increase) {
+  if (gameData.cookieCount >= cost) {
+    gameData.cookieCount -= cost;
+
+    // Increment upgrade count for specific upgrade
+    if (!gameData.upgrades[upgradeId]) {
+      gameData.upgrades[upgradeId] = 0;
+    }
+    gameData.upgrades[upgradeId] += 1;
+
+    // Update cookies per second
+    gameData.cookiesPerSecond += increase;
+
+    // Update display
+    cookiedisplay.textContent = gameData.cookieCount;
+    cookiesPerSeconddisplay.textContent = `${gameData.cookiesPerSecond} cps`;
+
+    // Save updated game data
+    saveGameData();
+
+    // Update the table directly without reloading the page
+    updateTable();
+  } else {
+    alert("Not enough cookies to buy this upgrade!");
+  }
+}
+
+// Update the table to reflect the new upgrade count
+function updateTable() {
+  getDetails().then((cookieData) => createTable(cookieData));
+}
