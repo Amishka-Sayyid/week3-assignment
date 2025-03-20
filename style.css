@@ -76,7 +76,7 @@ button {
   border: 1px solid transparent;
   padding: 0.2em 0.6em;
   margin: 0.4rem;
-  font-size: clamp(1rem, 2vw, 2rem);
+  font-size: clamp(1rem, 1.3vw, 1.5rem);
   font-weight: 500;
   font-family: inherit;
   background-color: #eceded;
