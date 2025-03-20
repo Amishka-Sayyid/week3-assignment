@@ -22,37 +22,68 @@ h1 {
   letter-spacing: 5px;
 }
 #cookie-increment-button {
-  height: 7rem;
-  width: 7rem;
+  height: 10rem;
+  width: 10rem;
   border-radius: 10rem;
+  font-size: 1.3rem;
 }
-#upgrades-shop-container::before {
-  content: "";
-  border-top: 1px solid #181717;
-  display: block;
-  width: 100vh;
+#total-cookies-owned,
+#current-cps {
+  font-size: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.8em 1em;
+  margin: 0.4rem;
+  background-color: rgb(227, 210, 239);
 }
-#upgrades-shop-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.shopStyle {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-#upgrades-shop-container::after {
-  content: "";
-  border-top: 1px solid #0d0c0c;
-  display: block;
-  width: 100vh;
-}
-
 #reset-button {
   height: 4rem;
   width: 10rem;
   border-radius: 5rem;
+}
+
+/* cookie div */
+#cookie {
+  min-height: 30vh;
+  background-color: rgb(194, 211, 211);
+  width: 100vw;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  place-self: center;
+}
+
+th,
+td {
+  border: 1px solid whitesmoke;
+  font-size: 1.5rem;
+  margin: auto;
+  padding: 5px;
+}
+
+table {
+  border: 1px solid whitesmoke;
+  font-size: 1.5rem;
+  width: 90%;
+  text-wrap: wrap;
+  place-self: center;
+}
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.2em 0.6em;
+  margin: 0.4rem;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #eceded;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }

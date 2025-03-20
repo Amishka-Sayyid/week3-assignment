@@ -1,3 +1,5 @@
+// previous code the new one working on page is the cookie.js
+
 console.log("This is connected correctly");
 
 let cookieCount = 0;
@@ -5,7 +7,7 @@ let cookiesPerSecond = 1;
 let upgradeCount = 0;
 
 // Initializing game data from localStorage (if available)
-let gameData = JSON.parse(localStorage.getItem("gameData")) || {
+let gameData = {
   cookieCount: 0,
   cookiesPerSecond: 1,
   upgradeCount: 0,
